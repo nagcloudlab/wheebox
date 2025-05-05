@@ -1,21 +1,36 @@
 package com.example.repository;
 
 import com.example.model.Account;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-public class JdbcAccountRepository  {
 
-    public JdbcAccountRepository() {
+//@Component
+@Repository
+@Qualifier("jpa")
+public class JpaAccountRepository implements AccountRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
+    public JpaAccountRepository() {
         // Constructor
-        System.out.println("JdbcAccountRepository initialized");
+        System.out.println("JpaAccountRepository initialized");
     }
 
+    //    @Transactional(readOnly = true)
     public Account loadAccount(String number) {
-        // Simulate loading an account from a database
-        return new Account(number,1000.00);
+        System.out.println("Loading account with number: " + number);
+        return entityManager.find(Account.class, number);
     }
 
     public void updateAccount(Account account) {
-        // Simulate updating an account in a database
+        System.out.println("Updating account: " + account);
+        entityManager.merge(account);
         System.out.println("Account updated: " + account);
     }
 
