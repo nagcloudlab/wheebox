@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class SecurityCheck {
 
-    @Before("execution(void transfer(..))")
+    //@Before("execution(void transfer(..))")
     public void hasPersmission() {
         // Security check logic
         System.out.println("SecurityCheck: hasPermission() called");

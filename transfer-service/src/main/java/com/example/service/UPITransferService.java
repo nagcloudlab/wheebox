@@ -1,13 +1,9 @@
 package com.example.service;
 
-import com.example.aspect.SecurityCheck;
 import com.example.model.Account;
 import com.example.repository.AccountRepository;
-import com.example.repository.AccountRepositoryFactory;
-import com.example.repository.JdbcAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +38,7 @@ public class UPITransferService implements TransferService {
     private AccountRepository accountRepository;
 
     @Autowired
-    public UPITransferService(@Qualifier("jpa") AccountRepository accountRepository) {
+    public UPITransferService(AccountRepository accountRepository) {
         // Constructor
         this.accountRepository = accountRepository;
         System.out.println("UPITransferService initialized");
@@ -57,9 +53,9 @@ public class UPITransferService implements TransferService {
         //JdbcAccountRepository accountRepository = new JdbcAccountRepository(); // Dont create
 
         // load 'from' account
-        Account fromAccountObj = accountRepository.loadAccount(fromAccountNumber);
+        Account fromAccountObj = accountRepository.findById(fromAccountNumber).get();
         // load 'to' account
-        Account toAccountObj = accountRepository.loadAccount(toAccountNumber);
+        Account toAccountObj = accountRepository.findById(toAccountNumber).get();
         System.out.println(fromAccountObj);
         System.out.println(toAccountObj);
         // check if 'from' account has sufficient balance
@@ -73,10 +69,10 @@ public class UPITransferService implements TransferService {
         toAccountObj.setBalance(toAccountObj.getBalance() + amount);
 
         // update 'from' account
-        accountRepository.updateAccount(fromAccountObj);
+        accountRepository.save(fromAccountObj);
 
         // update 'to' account
-        accountRepository.updateAccount(toAccountObj);
+        accountRepository.save(toAccountObj);
 
         // print success message
         System.out.println("UPITransferService: transfer() completed successfully");

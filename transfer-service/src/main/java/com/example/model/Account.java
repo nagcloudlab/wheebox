@@ -1,6 +1,7 @@
 package com.example.model;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -8,9 +9,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "accounts")
 public class Account {
-    @Id
-    private String number;
+
+    @Column(name = "balance",nullable = false)
     private int balance;
+    @Id
+    @Column(name = "number",nullable = false)
+    private String number;
+
 
     public Account(String number, int balance) {
         this.number = number;
