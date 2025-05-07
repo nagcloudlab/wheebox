@@ -1,1 +1,10 @@
 https://nagcloudlab.notion.site/Spring-Security-1e85bab9bf8780b68869d4c8bd675a65?pvs=4
+
+
+
+Microservices
+https://docs.google.com/presentation/d/125-YxJodOQnGqUKlo6mhRwUxxWbzq7GfmLH5mvvAsWY/edit?usp=sharing
+
+
+Kafka
+https://docs.google.com/presentation/d/15AQYMQQdoqsqkGKXOJtG_yZ8TcUVLHku47VEn9onxHc/edit?usp=sharing
